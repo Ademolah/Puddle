@@ -3,5 +3,33 @@
 {% block title %}Welcome here!{% endblock %}
 
 {% block content %}
-    <h1>This is the Front page</h1>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center ">Newest items</h2>
+
+        <!-- to make it 3x3 coloumns -->
+        <div class="grid grid-cols-3 gap-3">   
+            {% for item in items %}
+                <div>
+                    <a href="#">
+                        <div>
+                            <img src="{{item.image.url}}" class="rounded-t-xl"/>
+                        </div>
+
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">{{ item.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center ">Categories</h2>
+
+        <!-- to make it 3x3 coloumns -->
+        <div class="grid grid-cols-3 gap-3">
+        </div>
+    </div>
 {% endblock %}
