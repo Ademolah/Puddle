@@ -23,6 +23,6 @@ from core.views import index, contact
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('items/', include('item.urls')),
-    path('', index, name='index'),
+    path('', include('core.urls')),
     path('contact/', contact, name='contact')
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
