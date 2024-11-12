@@ -13,24 +13,24 @@
 
         <div class="mb-3">
             <label class="inline-block mb-2">Username</label><br>
-            {{ form.username}}
+            {{ form.username }}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Email</label><br>
-            {{ form.email}}
+            {{ form.email }}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Password</label><br>
-            {{ form.password1}}
+            {{ form.password1 }}
         </div>
         <div class="mb-3">
             <label class="inline-block mb-2">Repeat password</label><br>
-            {{ form.password2}}
+            {{ form.password2 }}
         </div>
 
-        {% if forms.errors or form.non_field_errors%}
+        {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                {% for field in forms %}
+                {% for field in form %}
                     {{ field.errors }}
                 {% endfor %}
 
