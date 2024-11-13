@@ -30,3 +30,5 @@ def signup(request):
     return render(request, 'core/signup.html', {
         'form': form
     })
+
+
