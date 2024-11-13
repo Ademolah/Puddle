@@ -23,6 +23,6 @@ def new(request):
 
     return render(request, 'item/form.html', {
         'form': form,
-        'item': 'New item',
+        'title': 'New Item',
     })
 
