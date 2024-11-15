@@ -20,6 +20,15 @@
                         <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
+
+            <hr class="my-6">
+
+            <p class="font-semibold">Clear filters</p>
+            <ul>
+                <li>
+                    <a href="{% url 'item:items' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-white rounded-xl text-lg">Clear</a>
+                </li>
+            </ul>
         </div>
 
         <div class="col-span-3">
