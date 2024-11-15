@@ -5,7 +5,7 @@ from django.db.models import Q
 
 from .forms import NewItemForm, EditItemForm
 
-from .models import Item
+from .models import Item, Category
 
 # Create your views here.
 
@@ -14,7 +14,7 @@ def items(request):
     items = Item.objects.filter(is_sold=False)
 
     if query:
-        items = items.filter(name__icontains=query)
+        items = items.filter(Q(name__icontains=query) | Q(description__icontains = query))
 
     return render(request, 'item/items.html', {
         'items': items,
