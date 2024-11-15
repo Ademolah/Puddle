@@ -11,6 +11,7 @@ from .models import Item, Category
 
 def items(request):
     query = request.GET.get('query', '')
+    categories = Category.objects.all()
     items = Item.objects.filter(is_sold=False)
 
     if query:
@@ -19,6 +20,7 @@ def items(request):
     return render(request, 'item/items.html', {
         'items': items,
         'query': query,
+        'categories': categories 
     })
 
 
