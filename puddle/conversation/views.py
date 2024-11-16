@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 
 from item.models import Item
 from .models import Conversation
@@ -7,6 +8,8 @@ from .models import Conversation
 from .forms import ConversationMessageForm
 
 # Create your views here.
+
+@login_required
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
 
