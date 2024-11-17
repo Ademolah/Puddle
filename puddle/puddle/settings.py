@@ -83,23 +83,23 @@ WSGI_APPLICATION = 'puddle.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'markitzone',  # Replace with your database name
-        'ENFORCE_SCHEMA': False,  # Optional, set to True to enforce schema
-        'CLIENT': {
-            'host': 'mongodb://localhost:27017',  # Adjust if needed
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'markitzone',  # Replace with your database name
+#         'ENFORCE_SCHEMA': False,  # Optional, set to True to enforce schema
+#         'CLIENT': {
+#             'host': 'mongodb://localhost:27017',  # Adjust if needed
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

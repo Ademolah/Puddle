@@ -2,6 +2,11 @@
 
 from django.db import migrations
 
+def drop_conversation_collection(apps, schema_editor):
+    from conversation.models import Conversation
+    # Conversation._meta.db_table.objects.all().delete()
+    Conversation.objects.all().delete()
+
 
 class Migration(migrations.Migration):
 
@@ -10,4 +15,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(drop_conversation_collection)
     ]
