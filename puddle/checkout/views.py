@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.views import View
 from django.http import JsonResponse
+import stripe.error
 from .models import Order, Payment, WebhookEvent
 import stripe
 
@@ -58,5 +59,64 @@ def checkout(request):
     
     #Render a checkout page for get request
     return render(request, 'checkout/checkout.html')
+
+def success(request):
+    session_id = request.GET.get('session_id')
+    session = stripe.checkout.Session.retrieve(session_id)
+
+    #update the payment status
+    payment = Payment.objects.get(stripe_payment_id = session_id)
+    payment.payment_status = 'Successful'
+    payment.save()
+
+    return render(request, 'checkout/success.html', {
+        'session': session
+    })
+
+def cancel(request):
+    #if user cancel payment
+    return render(request, 'checkout/cancel.html')
+
+def webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    endpoint_secret = settings.STRIPE_SECRET_KEY
+
+    #verify webhook signature
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        return JsonResponse({'error': 'Invalid payload'}, status=400)
+    except stripe.error.SignatureverificationError as e:
+        return JsonResponse({'error': 'Invalid payload'}, status=400)
+    
+    #handle the event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        session_id = session['id']
+
+        #update payment status based on session information
+        try:
+            payment = Payment.objects.get(stripe_payment= session_id)
+            payment.payment_status = 'Successful'
+            payment.save()
+
+            #update order status
+            order = payment.order
+            order.order_status = 'Completed'
+            order.save()
+
+        except Payment.DoesNotExist:
+            pass
+
+    #save the webhook event for logging purposes
+    WebhookEvent.objects.create(
+        event_type = event['type'],
+        payload=event
+    )
+
+    return JsonResponse({'status':'success'}, status=200)
 
 
