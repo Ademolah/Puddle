@@ -1,15 +1,13 @@
 {% extends 'core/base.html' %}
 
-{% block title%}Order{% endblock %}
-
-
+{% block title %}Checkout Page {% endblock %}
 
 {% block content %}
 
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold mb-4">Checkout</h1>
 
-    <form id="checkout-form" method="POST" action="{% url 'checkout' %}">
+    <form id="checkout-form" method="POST" action="{% url 'checkout:checkout' %}">
         {% csrf_token %}
         
         <div class="mb-4">
@@ -23,7 +21,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="total_amount" class="block text-sm font-medium text-gray-700">Total Amount (USD)</label>
+            <label for="total_amount" class="block text-sm font-medium text-gray-700">Total Amount (NGN)</label>
             <input type="number" name="total_amount" id="total_amount" required step="0.01" min="0" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" placeholder="Enter total amount">
         </div>
 
